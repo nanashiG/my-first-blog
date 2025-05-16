@@ -2,13 +2,23 @@
 
 {% block content %}
     {% for post in posts %}
-        <div class="post">
-            <div class="date">
-                {{ post.published_date }}
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="text-muted small mb-2">
+                    {{ post.published_date }}
+                </div>
+                <h2 class="card-title">
+                    <a href="{% url 'post_detail' pk=post.pk %}" class="text-decoration-none text-dark">
+                        {{ post.title }}
+                    </a>
+                </h2>
+                <p class="card-text">{{ post.text|linebreaksbr }}</p>
+                <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-outline-primary btn-sm mt-2">
+                    <i class="bi bi-chat-left-text"></i> Comments: {{ post.approved_comments.count }}
+                </a>
             </div>
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaksbr }}</p>
-            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
         </div>
+    {% empty %}
+        <p>No posts available.</p>
     {% endfor %}
 {% endblock content %}

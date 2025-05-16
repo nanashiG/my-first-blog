@@ -1,9 +1,27 @@
 {% extends 'blog/base.html' %}
 
+{% load widget_tweaks %}
+
 {% block content %}
-    <h2>New post</h2>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+    <h1 class="mb-4">Edit Post</h1>
+
+    <div class="card p-4">
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+            
+            <!-- タイトルフィールド -->
+            <div class="mb-3">
+                {{ form.title.label_tag }}
+                {{ form.title|add_class:"form-control" }}
+            </div>
+            
+            <!-- 本文フィールド -->
+            <div class="mb-3">
+                {{ form.text.label_tag }}
+                {{ form.text|add_class:"form-control" }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
 {% endblock %}
